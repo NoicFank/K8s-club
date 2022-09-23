@@ -69,7 +69,7 @@ k8s支持startupProbe、readinessProbe、livenessProbe三类探针，这三类�
 
 首先三类探针的初始默认值，就可以看出细微的区别：
 - startupProbe： Unknown
-- readinessProbe：Failed
+- readine5ssProbe：Failed
 - livenessProbe: Success
 
 下面结合场景与k8s doc介绍，分别说明三类探针的使用：
@@ -617,7 +617,7 @@ type Manager interface {
 }
 ```
 
-前部分，我们说worker通过`resultsManager.Set`更新缓存的探测结果，并在结果发送改变的时候向update信道发送消息，
+前部分，我们说worker通过`resultsManager.Set`更新缓存的探测结果，并在结果发生改变的时候向update信道发送消息，
 这时kubelet的`syncLoopIteration`中，会去取update信道中的消息。如果是`liveness消息`，并且探测到失败，就需要
 通过`handleProbeSync`来重启container。如果是`readiness消息`，就触发statusManager的`SetContainerReadiness`
 和`handleProbeSync`。如果是`startup消息`,就触发statusManager的`SetContainerStartup`
